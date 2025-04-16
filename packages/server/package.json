@@ -1,0 +1,38 @@
+{
+    "name": "@singularityql/server",
+    "version": "1.0.1",
+    "description": "SingularityQL resolver with an embedded Express HTTP server",
+    "keywords": [
+        "rest",
+        "api",
+        "query",
+        "ql"
+    ],
+    "homepage": "https://github.com/wiresnchains/singularityql#readme",
+    "bugs": {
+        "url": "https://github.com/wiresnchains/singularityql/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wiresnchains/singularityql.git"
+    },
+    "license": "Apache-2.0",
+    "author": "wiresnchains",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "devDependencies": {
+        "@types/express": "^5.0.1",
+        "@types/node": "^22.14.1"
+    },
+    "scripts": {
+        "clean": "rimraf ./dist",
+        "typecheck": "tsc --noEmit",
+        "maketypes": "dets ./src/index.ts --name @singularityql/server --out ./dist/index.d.ts",
+        "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=node --sourcemap --external:express --external:@singularityql/resolver",
+        "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
+    },
+    "dependencies": {
+        "@singularityql/resolver": "^1.0.1",
+        "express": "^5.1.0"
+    }
+}

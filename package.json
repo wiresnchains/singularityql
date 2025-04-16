@@ -7,8 +7,8 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "installEmAll": "concurrently \"cd packages/resolver && npm install\" \"cd packages/client && npm install\"",
-    "cleanEmAll": "concurrently \"cd packages/resolver && npm run clean\" \"cd packages/client && npm run clean\"",
-    "buildEmAll": "concurrently \"cd packages/resolver && npm run deploy\" \"cd packages/client && npm run deploy\""
+    "installEmAll": "npm install && concurrently \"cd packages/resolver && npm install\" \"cd packages/client && npm install\" \"cd packages/server && npm install\"",
+    "cleanEmAll": "concurrently \"cd packages/resolver && npm run clean\" \"cd packages/client && npm run clean\" \"cd packages/server && npm run clean\"",
+    "buildEmAll": "concurrently \"cd packages/resolver && npm run deploy\" \"cd packages/client && npm run deploy\" \"cd packages/server && npm run deploy\""
   }
 }

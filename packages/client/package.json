@@ -1,6 +1,6 @@
 {
   "name": "@singularityql/client",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "SingularityQL client for posting queries on to a SingularityQL server",
   "keywords": [
     "rest",

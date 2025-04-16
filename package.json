@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "dets": "^0.16.8",
+    "esbuild": "^0.25.2",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "installEmAll": "cd packages/resolver && npm install && cd ../client && npm install",
+    "buildEmAll": "cd packages/resolver && npm run deploy && cd ../client && npm run deploy"
+  }
+}

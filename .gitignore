@@ -1,0 +1,11 @@
+# Build
+dist/
+
+# Node
+node_modules/
+
+# Environment
+.env
+
+# OSX
+.DS_Store

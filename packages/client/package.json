@@ -1,0 +1,29 @@
+{
+  "name": "@singularityql/client",
+  "version": "0.0.1",
+  "description": "SingularityQL client for posting queries on to a SingularityQL server",
+  "keywords": [
+    "rest",
+    "api",
+    "query",
+    "ql"
+  ],
+  "homepage": "https://github.com/wiresnchains/singularityql#readme",
+  "bugs": {
+    "url": "https://github.com/wiresnchains/singularityql/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiresnchains/singularityql.git"
+  },
+  "license": "MIT",
+  "author": "wiresnchains",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "maketypes": "dets ./src/index.ts --name @singularityql/client --out ./dist/index.d.ts",
+    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=neutral && esbuild ./src/index.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
+    "deploy": "npm run typecheck && npm run maketypes && npm run build"
+  }
+}

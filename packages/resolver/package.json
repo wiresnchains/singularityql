@@ -1,0 +1,33 @@
+{
+  "name": "@singularityql/resolver",
+  "version": "0.0.1",
+  "description": "SingularityQL resolver for parsing SingularityQL queries and generating a response",
+  "keywords": [
+    "rest",
+    "api",
+    "query",
+    "ql"
+  ],
+  "homepage": "https://github.com/wiresnchains/singularityql#readme",
+  "bugs": {
+    "url": "https://github.com/wiresnchains/singularityql/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiresnchains/singularityql.git"
+  },
+  "license": "MIT",
+  "author": "wiresnchains",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/node": "^22.14.1"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "maketypes": "dets ./src/index.ts --name @singularityql/resolver --out ./dist/index.d.ts",
+    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=node",
+    "deploy": "npm run typecheck && npm run maketypes && npm run build",
+    "dev": "npm run build && node ./dist/index.js"
+  }
+}

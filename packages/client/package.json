@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/wiresnchains/singularityql.git"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "wiresnchains",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,11 +1,14 @@
 {
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "dets": "^0.16.8",
     "esbuild": "^0.25.2",
+    "rimraf": "^6.0.1",
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "installEmAll": "cd packages/resolver && npm install && cd ../client && npm install",
-    "buildEmAll": "cd packages/resolver && npm run deploy && cd ../client && npm run deploy"
+    "installEmAll": "concurrently \"cd packages/resolver && npm install\" \"cd packages/client && npm install\"",
+    "cleanEmAll": "concurrently \"cd packages/resolver && npm run clean\" \"cd packages/client && npm run clean\"",
+    "buildEmAll": "concurrently \"cd packages/resolver && npm run deploy\" \"cd packages/client && npm run deploy\""
   }
 }

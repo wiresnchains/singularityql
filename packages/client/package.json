@@ -21,9 +21,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "clean": "rimraf ./dist",
     "typecheck": "tsc --noEmit",
     "maketypes": "dets ./src/index.ts --name @singularityql/client --out ./dist/index.d.ts",
-    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=neutral && esbuild ./src/index.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
-    "deploy": "npm run typecheck && npm run maketypes && npm run build"
+    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=neutral --sourcemap && esbuild ./src/index.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
+    "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
   }
 }

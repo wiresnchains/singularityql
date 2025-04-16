@@ -24,10 +24,10 @@
     "@types/node": "^22.14.1"
   },
   "scripts": {
+    "clean": "rimraf ./dist",
     "typecheck": "tsc --noEmit",
     "maketypes": "dets ./src/index.ts --name @singularityql/resolver --out ./dist/index.d.ts",
-    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=node",
-    "deploy": "npm run typecheck && npm run maketypes && npm run build",
-    "dev": "npm run build && node ./dist/index.js"
+    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=node --sourcemap",
+    "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
   }
 }

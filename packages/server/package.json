@@ -32,7 +32,7 @@
         "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
     },
     "dependencies": {
-        "@singularityql/resolver": "^1.0.1",
+        "@singularityql/resolver": "^1.1.0",
         "express": "^5.1.0"
     }
 }

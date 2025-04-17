@@ -79,8 +79,14 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
                 queryResult[dataRequest.alias || dataRequest.value] = value;
                 queryScopedVariables[dataRequest.alias || dataRequest.value] = value;
             }
+
+            const targetQueryName = query.alias || query.resolverName;
+
+            if (output[targetQueryName]) {
+                throw new Error(`Query name \`${targetQueryName}\` is ambiguous`);
+            }
     
-            output[query.alias || query.resolverName] = queryResult;
+            output[targetQueryName] = queryResult;
         }
 
         output.status = SingularityQLStatus.Ok;

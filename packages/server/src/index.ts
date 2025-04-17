@@ -35,7 +35,7 @@ function createServer(options: ServerOptions) {
 
         try {
             const result = await singularityql.resolve(sgql.query, sgql.placeholders);
-            response.status(200).json(result);
+            response.status(result.error ? 400 : 200).json(result);
         } catch (err) {
             console.error("Error resolving SGQL:", err);
             response.status(500).json({

@@ -20,9 +20,6 @@
     "author": "wiresnchains",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "devDependencies": {
-        "@types/express": "^5.0.1"
-    },
     "scripts": {
         "clean": "rimraf ./dist",
         "typecheck": "tsc --noEmit",
@@ -32,6 +29,7 @@
     },
     "dependencies": {
         "@singularityql/resolver": "^1.1.0",
+        "@types/express": "^5.0.1",
         "express": "^5.1.0"
     }
 }

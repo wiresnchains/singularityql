@@ -16,11 +16,11 @@ const RESERVED_KEYWORDS = ["status", "error"];
 
 export function addResolver(name: string, handler: Resolver) {
     if (RESERVED_KEYWORDS.find(keyword => keyword == name)) {
-        throw new Error(`Cannot create resolver ${name} because it is a reserved keyword in SingularityQL`);
+        throw new Error(`Cannot create resolver \`${name}\` because it is a reserved keyword in SingularityQL`);
     }
 
     if (resolvers.get(name)) {
-        throw new Error(`Resolver for ${name} already exists`);
+        throw new Error(`Resolver for \`${name}\` already exists`);
     }
 
     resolvers.set(name, handler);
@@ -41,7 +41,7 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
             const queryResult: { [key: string]: any } = {};
     
             if (!resolver)
-                throw new Error(`Unknown resolver ${query.resolverName}`);
+                throw new Error(`Unknown resolver \`${query.resolverName}\``);
     
             const resolved = await resolver(...query.params.map(param => {
                 if (param.type == QueryParamType.StringLiteral) {
@@ -76,17 +76,17 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
             }));
     
             for (let j = 0; j < query.requestedData.length; j++) {
-                const requestedKey = query.requestedData[j];
-                const value = resolved[requestedKey];
+                const dataRequest = query.requestedData[j];
+                const value = resolved[dataRequest.value];
     
                 if (!value)
-                    throw new Error(`Value ${requestedKey} was requested but not returned by the resolver`);
+                    throw new Error(`Value \`${dataRequest.value}\` was requested but not returned by the resolver`);
     
-                queryResult[requestedKey] = value;
-                queryScopedVariables[requestedKey] = value;
+                queryResult[dataRequest.alias || dataRequest.value] = value;
+                queryScopedVariables[dataRequest.alias || dataRequest.value] = value;
             }
     
-            output[query.resolverName] = queryResult;
+            output[query.alias || query.resolverName] = queryResult;
         }
 
         output["status"] = SingularityQLStatus.Ok;

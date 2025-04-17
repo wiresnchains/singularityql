@@ -1,5 +1,5 @@
 import { tokenize } from "./lexer";
-import { Query, QueryParam, QueryParamType } from "./query";
+import { Query, QueryDataRequest, QueryParam, QueryParamType } from "./query";
 import { TokenType } from "./token";
 import { TokenStream } from "./tokenStream";
 
@@ -22,11 +22,13 @@ function parseQuery(stream: TokenStream): Query {
 
     const params = parseParams(stream);
     const requestedData = parseRequestedData(stream);
+    const alias = parseAlias(stream);
 
     return {
         resolverName: resolverNameToken.value,
         params,
-        requestedData
+        requestedData,
+        alias
     };
 }
 
@@ -79,16 +81,20 @@ function parseParams(stream: TokenStream): QueryParam[] {
     return params;
 }
 
-function parseRequestedData(stream: TokenStream): string[] {
-    const requestedData: string[] = [];
+function parseRequestedData(stream: TokenStream): QueryDataRequest[] {
+    const requestedData: QueryDataRequest[] = [];
 
     stream.advance(TokenType.BraceLeft);
     
     if (stream.peek().type != TokenType.BraceRight) {
         while (true) {
             const token = stream.advance(TokenType.Identifier);
+            const alias = parseAlias(stream);
             
-            requestedData.push(token.value);
+            requestedData.push({
+                value: token.value,
+                alias
+            });
 
             if (stream.peek().type !== TokenType.Comma)
                 break;
@@ -100,4 +106,15 @@ function parseRequestedData(stream: TokenStream): string[] {
     stream.advance(TokenType.BraceRight);
 
     return requestedData;
+}
+
+function parseAlias(stream: TokenStream): string | undefined {
+    let next = stream.peekAny();
+
+    if (!next || next.type != TokenType.Identifier || next.value != "as") {
+        return; 
+    }
+
+    stream.advance(TokenType.Identifier);
+    return stream.advance(TokenType.Identifier).value;
 }

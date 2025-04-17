@@ -10,8 +10,14 @@ export type QueryParam = {
     value: string;
 }
 
+export type QueryDataRequest = {
+    value: string;
+    alias?: string;
+}
+
 export type Query = {
     resolverName: string;
-    params: Array<QueryParam>;
-    requestedData: string[];
+    params: QueryParam[];
+    requestedData: QueryDataRequest[];
+    alias?: string;
 }

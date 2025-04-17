@@ -21,8 +21,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "devDependencies": {
-        "@types/express": "^5.0.1",
-        "@types/node": "^22.14.1"
+        "@types/express": "^5.0.1"
     },
     "scripts": {
         "clean": "rimraf ./dist",

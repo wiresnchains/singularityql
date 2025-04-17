@@ -24,7 +24,7 @@
     "clean": "rimraf ./dist",
     "typecheck": "tsc --noEmit",
     "maketypes": "dets ./src/index.ts --name @singularityql/client --out ./dist/index.d.ts",
-    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=neutral --sourcemap && esbuild ./src/index.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
+    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=neutral --sourcemap && esbuild ./src/web.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
     "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
   }
 }

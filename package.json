@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "concurrently": "^9.1.2",
     "dets": "^0.16.8",
     "esbuild": "^0.25.2",

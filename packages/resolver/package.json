@@ -20,9 +20,6 @@
   "author": "wiresnchains",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "devDependencies": {
-    "@types/node": "^22.14.1"
-  },
   "scripts": {
     "clean": "rimraf ./dist",
     "typecheck": "tsc --noEmit",

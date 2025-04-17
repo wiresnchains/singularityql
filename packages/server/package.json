@@ -1,6 +1,6 @@
 {
     "name": "@singularityql/server",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "SingularityQL resolver with an embedded Express HTTP server",
     "keywords": [
         "rest",
@@ -28,7 +28,7 @@
         "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
     },
     "dependencies": {
-        "@singularityql/resolver": "^1.1.1",
+        "@singularityql/resolver": "^1.1.2",
         "@types/express": "^5.0.1",
         "express": "^5.1.0"
     }

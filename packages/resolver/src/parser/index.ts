@@ -49,7 +49,13 @@ function parseParams(stream: TokenStream): QueryParam[] {
             else {
                 switch (token.type) {
                     case TokenType.Identifier:
-                        paramType = QueryParamType.QueryVariable;
+                        if (token.value == "true" || token.value == "false") {
+                            paramType = QueryParamType.BooleanLiteral;
+                        }
+                        else {
+                            paramType = QueryParamType.QueryVariable;
+                        }
+
                         break;
                     case TokenType.StringLiteral:
                         paramType = QueryParamType.StringLiteral;

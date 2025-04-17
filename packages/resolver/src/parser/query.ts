@@ -1,5 +1,6 @@
 export enum QueryParamType {
     QueryVariable,
+    BooleanLiteral,
     StringLiteral,
     NumberLiteral,
     Placeholder

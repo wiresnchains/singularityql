@@ -41,6 +41,9 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
                 if (param.type == QueryParamType.StringLiteral) {
                     return param.value;
                 }
+                else if (param.type == QueryParamType.BooleanLiteral) {
+                    return param.value == "true" ? true : false;
+                }
                 else if (param.type == QueryParamType.NumberLiteral) {
                     let result = Number(param.value);
                         

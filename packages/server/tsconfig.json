@@ -5,5 +5,5 @@
         "module": "NodeNext",
         "moduleResolution": "nodenext"
     },
-    "include": ["./src/**/*.ts"]
+    "include": ["./src/**/*.ts", "../shared/**/*.ts"]
 }

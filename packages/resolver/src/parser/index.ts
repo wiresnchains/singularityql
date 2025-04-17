@@ -89,11 +89,20 @@ function parseRequestedData(stream: TokenStream): QueryDataRequest[] {
     if (stream.peek().type != TokenType.BraceRight) {
         while (true) {
             const token = stream.advance(TokenType.Identifier);
+
+            let optional = false;
+
+            if (stream.peek().type == TokenType.QuestionMark) {
+                stream.advanceAny();
+                optional = true;
+            }
+
             const alias = parseAlias(stream);
             
             requestedData.push({
                 value: token.value,
-                alias
+                alias,
+                optional
             });
 
             if (stream.peek().type !== TokenType.Comma)

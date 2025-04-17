@@ -7,7 +7,8 @@ export enum TokenType {
     StringLiteral,
     NumberLiteral,
     Comma,
-    Colon
+    Colon,
+    QuestionMark
 }
 
 export type Token = {
@@ -37,6 +38,8 @@ export function tokenTypeToString(tokenType: TokenType): string {
             return "Comma";
         case TokenType.Colon:
             return "Colon";
+        case TokenType.QuestionMark:
+            return "QuestionMark";
         default:
             return "UnknownToken";
     }

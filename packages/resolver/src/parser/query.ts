@@ -13,6 +13,7 @@ export type QueryParam = {
 export type QueryDataRequest = {
     value: string;
     alias?: string;
+    optional: boolean;
 }
 
 export type Query = {

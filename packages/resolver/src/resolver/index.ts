@@ -79,7 +79,7 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
                 const dataRequest = query.requestedData[j];
                 const value = resolved[dataRequest.value];
     
-                if (!value)
+                if (!value && !dataRequest.optional)
                     throw new Error(`Value \`${dataRequest.value}\` was requested but not returned by the resolver`);
     
                 queryResult[dataRequest.alias || dataRequest.value] = value;

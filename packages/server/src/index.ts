@@ -1,12 +1,27 @@
 import singularityql from "@singularityql/resolver";
-import express from "express";
+import express, { Express, Request, Response } from "express";
+import https from "https";
+import http from "http";
 
-const app = express();
+export type ServerOptions = {
+    port: number;
+    configureApp?: (app: Express) => void;
+    https?: {
+        key: string;
+        cert: string;
+    };
+}
 
-app.use(express.json());
+function createServer(options: ServerOptions) {
+    const app = express();
 
-function listen(port: number) {
-    app.post("/sgql", async (request, response) => {
+    app.use(express.json()); 
+
+    if (options.configureApp) {
+        options.configureApp(app);
+    }
+
+    app.post("/sgql", async (request: Request, response: Response) => {
         const sgql = request.body.sgql;
 
         if (!sgql || !sgql.query || !sgql.placeholders) {
@@ -29,9 +44,12 @@ function listen(port: number) {
         }
     });
 
-    app.listen(port, () => {
-        console.log(`SingularityQL server started on port ${port}`);
+    const server = options.https ? https.createServer({ key: options.https.key, cert: options.https.cert }, app) : http.createServer(app);
+
+    server.listen(options.port, () => {
+        const proto = options.https ? "https" : "http";
+        console.log(`SingularityQL server started on port ${proto}://localhost:${options.port}`);
     });
 }
 
-export { app, listen };
+export { createServer };

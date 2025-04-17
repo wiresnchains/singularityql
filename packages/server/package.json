@@ -27,7 +27,7 @@
     "scripts": {
         "clean": "rimraf ./dist",
         "typecheck": "tsc --noEmit",
-        "maketypes": "dets ./src/index.ts --name @singularityql/server --out ./dist/index.d.ts",
+        "maketypes": "dets ./src/index.ts --name @singularityql/server --out ./dist/index.d.ts --imports express",
         "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=node --sourcemap --external:express --external:@singularityql/resolver",
         "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
     },

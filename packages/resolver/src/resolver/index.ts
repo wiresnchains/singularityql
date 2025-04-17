@@ -4,11 +4,14 @@ import { QueryParamType } from "../parser/query";
 
 export type ResolverResult = {
     [key: string]: any;
-    status: SingularityQLStatus;
-    error?: string;
 };
 
 export type Resolver = (...args: any[]) => Promise<ResolverResult> | ResolverResult;
+
+export interface ResolverOutput extends ResolverResult {
+    status: SingularityQLStatus;
+    error?: string;
+};
 
 export const resolvers: Map<String, Resolver> = new Map();
 
@@ -26,19 +29,19 @@ export function addResolver(name: string, handler: Resolver) {
     resolvers.set(name, handler);
 }
 
-export async function resolve(queryStr: string, placeholders: { [key: string]: any }): Promise<ResolverResult> {
-    const output: ResolverResult = {
+export async function resolve(queryStr: string, placeholders: { [key: string]: any }): Promise<ResolverOutput> {
+    const output: ResolverOutput = {
         status: SingularityQLStatus.Unknown
     };
 
     try {
         const queries = parse(queryStr);
-        const queryScopedVariables: { [key: string]: any } = {};
+        const queryScopedVariables: ResolverResult = {};
     
         for (let i = 0; i < queries.length; i++) {
             const query = queries[i];
             const resolver = resolvers.get(query.resolverName);
-            const queryResult: { [key: string]: any } = {};
+            const queryResult: ResolverResult = {};
     
             if (!resolver)
                 throw new Error(`Unknown resolver \`${query.resolverName}\``);
@@ -89,13 +92,13 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
             output[query.alias || query.resolverName] = queryResult;
         }
 
-        output["status"] = SingularityQLStatus.Ok;
+        output.status = SingularityQLStatus.Ok;
     
         return output;
     }
     catch (err: any) {
-        output["status"] = SingularityQLStatus.Error;
-        output["error"] = err.toString();
+        output.status = SingularityQLStatus.Error;
+        output.error = err.toString();
     }
 
     return output;

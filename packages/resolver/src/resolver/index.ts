@@ -1,17 +1,8 @@
-import { SingularityQLStatus } from "../../../shared";
+import { ResolverOutput, ResolverResult, SingularityQLStatus } from "../../../shared";
 import { parse } from "../parser";
 import { QueryParamType } from "../parser/query";
 
-export type ResolverResult = {
-    [key: string]: any;
-};
-
 export type Resolver = (...args: any[]) => Promise<ResolverResult> | ResolverResult;
-
-export interface ResolverOutput extends ResolverResult {
-    status: SingularityQLStatus;
-    error?: string;
-};
 
 export const resolvers: Map<String, Resolver> = new Map();
 

@@ -2,6 +2,7 @@ import singularityql from "@singularityql/resolver";
 import express, { Express, Request, Response } from "express";
 import https from "https";
 import http from "http";
+import { SingularityQLStatus } from "../../shared";
 
 export type ServerOptions = {
     port: number;
@@ -38,7 +39,7 @@ function createServer(options: ServerOptions) {
         } catch (err) {
             console.error("Error resolving SGQL:", err);
             response.status(500).json({
-                status: 500,
+                status: SingularityQLStatus.Error,
                 error: "Internal Server Error"
             });
         }

@@ -1,2 +1,4 @@
+dist/web.js
+dist/web.js.map
 src/
 tsconfig.json

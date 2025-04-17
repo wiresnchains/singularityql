@@ -1,7 +1,13 @@
+import { SingularityQLStatus } from "../../../shared";
 import { parse } from "../parser";
 import { QueryParamType } from "../parser/query";
 
-export type ResolverResult = { [key: string]: any };
+export type ResolverResult = {
+    [key: string]: any;
+    status: SingularityQLStatus;
+    error?: string;
+};
+
 export type Resolver = (...args: any[]) => Promise<ResolverResult> | ResolverResult;
 
 export const resolvers: Map<String, Resolver> = new Map();
@@ -21,7 +27,9 @@ export function addResolver(name: string, handler: Resolver) {
 }
 
 export async function resolve(queryStr: string, placeholders: { [key: string]: any }): Promise<ResolverResult> {
-    const output: ResolverResult = {};
+    const output: ResolverResult = {
+        status: SingularityQLStatus.Unknown
+    };
 
     try {
         const queries = parse(queryStr);
@@ -30,7 +38,7 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
         for (let i = 0; i < queries.length; i++) {
             const query = queries[i];
             const resolver = resolvers.get(query.resolverName);
-            const queryResult: ResolverResult = {};
+            const queryResult: { [key: string]: any } = {};
     
             if (!resolver)
                 throw new Error(`Unknown resolver ${query.resolverName}`);
@@ -81,12 +89,12 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
             output[query.resolverName] = queryResult;
         }
 
-        output["status"] = 200;
+        output["status"] = SingularityQLStatus.Ok;
     
         return output;
     }
     catch (err: any) {
-        output["status"] = 400;
+        output["status"] = SingularityQLStatus.Error;
         output["error"] = err.toString();
     }
 

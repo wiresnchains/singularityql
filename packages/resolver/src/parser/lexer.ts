@@ -77,6 +77,10 @@ export function tokenize(query: string): Token[] {
                     pushBuffer();
                     pushToken(TokenType.QuestionMark, '?');
                     continue;
+                case '~':
+                    pushBuffer();
+                    pushToken(TokenType.Tilde, '~');
+                    continue;
                 case '"':
                     pushBuffer();
                     inString = true;

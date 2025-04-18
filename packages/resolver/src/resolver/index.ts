@@ -79,14 +79,23 @@ export async function resolve(queryStr: string, placeholders: { [key: string]: a
                 if (!value && !dataRequest.optional)
                     throw new Error(`Value \`${dataRequest.value}\` was requested but not returned by the resolver`);
     
-                queryResult[dataRequest.alias || dataRequest.value] = value;
-                queryScopedVariables[dataRequest.alias || dataRequest.value] = value;
+                const targetName = dataRequest.alias || dataRequest.value;
+
+                if (queryScopedVariables[targetName]) {
+                    throw new Error(`Requested variable \`${targetName}\` is ambiguous (hint: use \`as\` keyword to set an alias)`);
+                }
+
+                if (!dataRequest.queryScopeOnly) {
+                    queryResult[targetName] = value;
+                }
+
+                queryScopedVariables[targetName] = value;
             }
 
             const targetQueryName = query.alias || query.resolverName;
 
             if (output[targetQueryName]) {
-                throw new Error(`Query name \`${targetQueryName}\` is ambiguous`);
+                throw new Error(`Query name \`${targetQueryName}\` is ambiguous (hint: use \`as\` keyword to set an alias)`);
             }
     
             output[targetQueryName] = queryResult;

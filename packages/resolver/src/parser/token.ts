@@ -8,7 +8,8 @@ export enum TokenType {
     NumberLiteral,
     Comma,
     Colon,
-    QuestionMark
+    QuestionMark,
+    Tilde,
 }
 
 export type Token = {

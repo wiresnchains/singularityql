@@ -15,6 +15,7 @@ export type QueryDataRequest = {
     value: string;
     alias?: string;
     optional: boolean;
+    queryScopeOnly: boolean;
 }
 
 export type Query = {

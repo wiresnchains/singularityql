@@ -94,9 +94,15 @@ function parseRequestedData(stream: TokenStream): QueryDataRequest[] {
     
     if (stream.peek().type != TokenType.BraceRight) {
         while (true) {
-            const token = stream.advance(TokenType.Identifier);
+            let token = stream.advance(TokenType.Identifier, TokenType.Tilde);
 
             let optional = false;
+            let queryScopeOnly = false;
+
+            if (token.type == TokenType.Tilde) {
+                queryScopeOnly = true;
+                token = stream.advance(TokenType.Identifier);
+            }
 
             if (stream.peek().type == TokenType.QuestionMark) {
                 stream.advanceAny();
@@ -108,7 +114,8 @@ function parseRequestedData(stream: TokenStream): QueryDataRequest[] {
             requestedData.push({
                 value: token.value,
                 alias,
-                optional
+                optional,
+                queryScopeOnly
             });
 
             if (stream.peek().type !== TokenType.Comma)

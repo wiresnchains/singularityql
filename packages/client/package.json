@@ -1,6 +1,6 @@
 {
   "name": "@singularityql/client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "SingularityQL client for posting queries on to a SingularityQL server",
   "keywords": [
     "rest",
@@ -24,7 +24,10 @@
     "clean": "rimraf ./dist",
     "typecheck": "tsc --noEmit",
     "maketypes": "dets ./src/index.ts --name @singularityql/client --out ./dist/index.d.ts",
-    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=neutral --sourcemap && esbuild ./src/web.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
+    "build": "esbuild ./src/index.ts --outfile=./dist/index.js --bundle --minify-whitespace --platform=node --sourcemap --external:json-stable-stringify && esbuild ./src/web.ts --outfile=./dist/web.js --bundle --minify-whitespace --platform=browser --format=esm --sourcemap",
     "deploy": "npm run clean && npm run typecheck && npm run maketypes && npm run build"
+  },
+  "dependencies": {
+    "json-stable-stringify": "^1.2.1"
   }
 }

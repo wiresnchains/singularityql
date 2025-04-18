@@ -1,8 +1,6 @@
 import { addResolver, resolve } from "./resolver";
 
-const singularityql = {
+export {
     addResolver,
     resolve
 };
-
-export default singularityql;

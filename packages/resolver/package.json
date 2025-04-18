@@ -1,6 +1,6 @@
 {
   "name": "@singularityql/resolver",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "SingularityQL resolver for parsing SingularityQL queries and generating a response",
   "keywords": [
     "rest",
